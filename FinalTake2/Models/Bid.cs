@@ -11,8 +11,8 @@ namespace FinalTake2.Models
     [Table("Bid")]
     public partial class Bid
     {
+        [Required]
         public int id { get; set; }
-
 
         [Required]
         public int itemID { get; set; }
@@ -24,7 +24,7 @@ namespace FinalTake2.Models
         public int price { get; set; }
 
         [Required]
-        public DateTime timeOffered = DateTime.Now;
+        public DateTime timeOffered  {get; set;}
 
         public virtual Buyer Buyer { get; set; }
 
