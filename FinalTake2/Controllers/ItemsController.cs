@@ -7,12 +7,31 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalTake2.Models;
+using FinalTake2.Models.ViewModel;
+using System.Diagnostics;
 
 namespace FinalTake2.Controllers
 {
+
+
     public class ItemsController : Controller
     {
         private dbContext db = new dbContext();
+
+        public ActionResult BidList(string id2)
+        {
+            ViewModelTest bids = new ViewModelTest();
+
+            int id = Convert.ToInt32(id2);
+
+            bids.name = db.Bids.Where(s => s.itemID == id).Select(d => d.Buyer.bName).ToList();
+
+            bids.price = db.Bids.Where(s => s.itemID == id).Select(d => d.price).ToList();
+
+            return Json(bids, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         // GET: Items
         public ActionResult Index()
@@ -22,12 +41,11 @@ namespace FinalTake2.Controllers
         }
 
         // GET: Items/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            Debug.WriteLine(id);
+
+
             Item item = db.Items.Find(id);
             if (item == null)
             {

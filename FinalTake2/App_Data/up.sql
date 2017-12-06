@@ -26,6 +26,7 @@ CREATE TABLE Bid(
 	buyerID		int			 NOT NULL,
 	price		int			 NOT NULL,
 	timeOffered	datetime	 NOT NULL,
+	PRIMARY KEY (id),
 	FOREIGN KEY (buyerID) REFERENCES Buyer(id),
 	FOREIGN KEY (itemID) REFERENCES Item(id)
 )
